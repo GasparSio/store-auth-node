@@ -22,6 +22,7 @@ app.use(express.json());
 // }
 app.use(cors());
 
+require('./utils/auth/index');
 
 // app.get('/nueva-ruta', authHandler, (req, res) => {
 //   res.send('Hola, soy una nueva ruta');
