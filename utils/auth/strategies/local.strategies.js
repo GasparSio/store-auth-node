@@ -22,7 +22,7 @@ const localStrategy = new Strategy({
       if (!result) {
         done(boom.unauthorized('Invalid password'), false);
       };
-
+      delete user.dataValues.password;
       done(null, user);
     } catch (error) {
       done(error, false);
