@@ -3,6 +3,8 @@ const passport = require('passport');
 
 const CategoryService = require('./../services/category.service');
 const validatorHandler = require('./../middlewares/validator.handler');
+const { verifyRole } = require('../middlewares/auth.handler');
+
 const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('./../schemas/category.schema');
 
 const router = express.Router();
@@ -33,6 +35,7 @@ router.get('/:id',
 router.post('/',
   //si el token es valido, puede pasar a la siguiente capa
   passport.authenticate('jwt', { session: false}),
+  verifyRole,
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
