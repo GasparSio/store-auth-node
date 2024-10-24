@@ -10,7 +10,10 @@ const { createCategorySchema, updateCategorySchema, getCategorySchema } = requir
 const router = express.Router();
 const service = new CategoryService();
 
-router.get('/', async (req, res, next) => {
+router.get('/',
+  passport.authenticate('jwt', { session: false}),
+  verifyRole('admin', 'customer'),
+  async (req, res, next) => {
   try {
     const categories = await service.find();
     res.json(categories);
@@ -35,7 +38,7 @@ router.get('/:id',
 router.post('/',
   //si el token es valido, puede pasar a la siguiente capa
   passport.authenticate('jwt', { session: false}),
-  verifyRole,
+  verifyRole('admin'),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {

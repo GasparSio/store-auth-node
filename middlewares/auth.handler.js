@@ -9,21 +9,20 @@ const authHandler = (req, res, next) => {
   next(boom.unauthorized('API key is required'));
 }
 
-const verifyRole = (req, res, next) => {
+//en la funcion principal se recibe un array de roles
+//y retornara un middleware que verificara el rol del usuario
+const verifyRole = (...roles) => {
+  return (req, res, next) => {
     const user = req.user;
-    const role = user.role;
-    console.log('user', user);
-    console.log('role', role);
-    if (!user) {
-      return next(boom.unauthorized('Missing user'));
-    }
-
-    if (role === 'admin') {
+    //si el rol del usuario que viene en el req.user esta incluido en el array de roles que se le pasa
+    //al middleware entonces se llama a next() para que continue con el flujo
+    if (roles.includes(user.role)) {
       next();
     } else {
       next(boom.unauthorized('Insufficient permissions'));
     }
   }
+}
 module.exports = { authHandler, verifyRole };
 
 
