@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  secure: false, // true for port 465, false for other ports
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // true for port 465, false for other ports
   auth: {
-    user: "verla48@ethereal.email",
-    pass: "6NfGg44dc8N1CYQn9q",
+    user: "sio.gaspar@gmail.com",
+    pass: "ncuc qllq qugh cbyl",
   },
 });
 
@@ -14,8 +14,8 @@ const transporter = nodemailer.createTransport({
 async function sendMail() {
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-    to: "bar@example.com, baz@example.com", // list of receivers
+    from: '"Gaspar Sio 👻" <sio.gaspar@gmail.com>', // sender address
+    to: "sio.gaspar@gmail.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: "<b>Hello world?</b>", // html body
